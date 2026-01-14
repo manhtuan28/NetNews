@@ -1,0 +1,44 @@
+﻿@model NetNews.Models.Post
+
+@{
+    ViewData["Title"] = "Xóa bài viết";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 border-top border-5 border-danger">
+            <div class="card-body p-5 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-trash-alt fa-4x text-danger opacity-75"></i>
+                </div>
+
+                <h3 class="fw-bold mb-3">Bạn có chắc chắn muốn xóa bài viết này?</h3>
+                <p class="text-muted mb-4">Hành động này không thể hoàn tác.</p>
+
+                <div class="bg-light p-3 rounded mb-4 text-start d-flex gap-3 align-items-center">
+                    @if (!string.IsNullOrEmpty(Model.Thumbnail))
+                    {
+                        <img src="@Model.Thumbnail" class="rounded" style="width: 100px; height: 70px; object-fit: cover;" />
+                    }
+                    <div>
+                        <h5 class="mb-1 fw-bold text-dark">@Model.Title</h5>
+                        <div class="small text-muted">
+                            <span class="me-2"><i class="fas fa-folder me-1"></i>@Model.Category?.Name</span>
+                            <span><i class="fas fa-user me-1"></i>@Model.Author?.UserName</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-center gap-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">Hủy bỏ</a>
+                        <button type="submit" class="btn btn-danger px-4 fw-bold rounded-pill">
+                            <i class="fas fa-check me-2"></i> Xác nhận xóa
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

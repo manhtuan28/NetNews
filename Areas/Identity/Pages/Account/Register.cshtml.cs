@@ -92,6 +92,7 @@ namespace NetNews.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "Member");
                     _logger.LogInformation("Người dùng đã tạo tài khoản mới.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

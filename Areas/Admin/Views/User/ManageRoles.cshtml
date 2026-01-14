@@ -1,0 +1,71 @@
+﻿@model NetNews.Areas.Admin.Models.UserRolesViewModel
+
+@{
+    ViewData["Title"] = "Phân quyền thành viên";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0 fw-bold"><i class="fas fa-user-shield me-2"></i>Cấp quyền cho: @Model.UserName</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="UserName" />
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold mb-3 text-uppercase text-muted small">Chọn 1 vai trò duy nhất:</label>
+                        <div class="d-flex flex-column gap-2">
+                            @for (int i = 0; i < Model.AllRoles.Count; i++)
+                            {
+                                var role = Model.AllRoles[i];
+                                <div class="form-check p-3 border rounded bg-light d-flex align-items-center cursor-pointer hover-shadow position-relative">
+
+                                    <input class="form-check-input ms-0 me-3"
+                                           type="radio"
+                                           asp-for="SelectedRole"
+                                           value="@role"
+                                           id="role_@i"
+                                           style="transform: scale(1.3); cursor: pointer;">
+
+                                    <label class="form-check-label fw-bold w-100 stretched-link" for="role_@i" style="cursor: pointer;">
+                                        @role
+                                        @if (role == "Admin")
+                                        {
+                                            <span class="badge bg-danger ms-2">Quản trị</span>
+                                        }
+                                        @if (role == "Editor")
+                                        {
+                                            <span class="badge bg-warning text-dark ms-2">Biên tập</span>
+                                        }
+                                        @if (role == "Member")
+                                        {
+                                            <span class="badge bg-secondary ms-2">Thành viên</span>
+                                        }
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        <span asp-validation-for="SelectedRole" class="text-danger mt-2 d-block"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                            <i class="fas fa-save me-2"></i>Lưu thay đổi
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Hủy bỏ</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        background-color: #e9ecef !important;
+        border-color: #0d6efd !important;
+    }
+</style>
