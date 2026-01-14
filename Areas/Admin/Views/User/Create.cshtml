@@ -1,0 +1,62 @@
+﻿@model NetNews.Areas.Admin.Models.CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Thêm người dùng mới";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-success"><i class="fas fa-user-plus me-2"></i>@ViewData["Title"]</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                        <label asp-for="Email">Email (Tài khoản)</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+                                <label asp-for="Password">Mật khẩu</label>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Xác nhận" />
+                                <label asp-for="ConfirmPassword">Nhập lại mật khẩu</label>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Role" class="form-label fw-bold">Phân quyền</label>
+                        <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select">
+                            <option value="">-- Chọn quyền hạn --</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg fw-bold">
+                            <i class="fas fa-save me-2"></i>Tạo tài khoản
+                        </button>
+                        <a asp-action="Index" class="btn btn-light border">Hủy bỏ</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
