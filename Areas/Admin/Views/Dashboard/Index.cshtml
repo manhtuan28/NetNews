@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Tổng quan";
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="fw-bold text-primary"><i class="fas fa-tachometer-alt"></i> Trang Quản Trị</h1>
+            <p class="text-muted">Xin chào, <strong>@User.Identity?.Name</strong>! Bạn đang đăng nhập với quyền hạn cao nhất.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-0">Bài viết</h6>
+                            <h2 class="display-4 fw-bold my-2">128</h2>
+                            <small>+5 bài mới hôm nay</small>
+                        </div>
+                        <i class="fas fa-newspaper fa-4x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-0">Danh mục</h6>
+                            <h2 class="display-4 fw-bold my-2">12</h2>
+                            <small>Đang hoạt động</small>
+                        </div>
+                        <i class="fas fa-tags fa-4x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-warning text-dark shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-0">Thành viên</h6>
+                            <h2 class="display-4 fw-bold my-2">1,050</h2>
+                            <small>+12 đăng ký mới</small>
+                        </div>
+                        <i class="fas fa-users fa-4x opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

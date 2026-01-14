@@ -1,0 +1,75 @@
+﻿@model NetNews.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 border-top border-5 border-danger">
+            <div class="card-body p-5 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle fa-4x text-danger opacity-75"></i>
+                </div>
+
+                <h3 class="fw-bold mb-3">Bạn chắc chắn muốn xóa?</h3>
+
+                @if (Model.SubCategories != null && Model.SubCategories.Any())
+                {
+                    <div class="alert alert-danger border-0 rounded-3 mb-4 text-start">
+                        <div class="d-flex">
+                            <i class="fas fa-bomb me-3 mt-1 fa-lg"></i>
+                            <div>
+                                <strong>CẢNH BÁO NGUY HIỂM:</strong><br />
+                                Danh mục này đang chứa <strong>@Model.SubCategories.Count</strong> danh mục con
+                                (<em>@string.Join(", ", Model.SubCategories.Select(c => c.Name))</em>).<br />
+                                Nếu bạn xóa, <strong>tất cả danh mục con cũng sẽ bị xóa vĩnh viễn!</strong>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted mb-4">
+                        Hành động này không thể hoàn tác. Danh mục <strong>"@Model.Name"</strong> sẽ bị xóa vĩnh viễn khỏi hệ thống.
+                    </p>
+                }
+
+                <div class="bg-light p-3 rounded mb-4 text-start">
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Tên danh mục:</div>
+                        <div class="col-8">@Model.Name</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Slug:</div>
+                        <div class="col-8">@Model.Slug</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 fw-bold">Trạng thái:</div>
+                        <div class="col-8">
+                            @if (Model.IsActive)
+                            {
+                                <span class="text-success">Đang hiện</span>
+                            }
+                            else
+                            {
+
+                                <span class="text-muted">Đang ẩn</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-center gap-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại</a>
+                        <button type="submit" class="btn btn-danger px-4 fw-bold rounded-pill">
+                            <i class="fas fa-trash-alt me-2"></i> Xác nhận xóa
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
