@@ -47,26 +47,8 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Xã hội</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Thế giới</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Kinh doanh</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Công nghệ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Thể thao</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                Khác
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Giải trí</a></li>
-                                <li><a class="dropdown-item" href="#">Sức khỏe</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Liên hệ tòa soạn</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
+                    <vc:category-menu />
+                    <form class="d-flex ms-auto">
                         <div class="input-group">
                             <input class="form-control" type="search" placeholder="Tìm kiếm tin tức..." aria-label="Search">
                             <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>

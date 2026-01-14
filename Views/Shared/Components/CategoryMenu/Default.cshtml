@@ -1,0 +1,74 @@
+﻿@model IEnumerable<NetNews.Models.Category>
+
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link fw-bold" asp-controller="Home" asp-action="Index">Trang chủ</a>
+    </li>
+
+    @foreach (var category in Model)
+    {
+        var hasChildren = category.SubCategories != null && category.SubCategories.Any(c => c.IsActive);
+
+        if (hasChildren)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-bold" href="#" id="cat_@category.Id" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @category.Name
+                </a>
+                <ul class="dropdown-menu border-0 shadow-sm animate-fade">
+                    <li>
+                        <a class="dropdown-item fw-bold text-primary" asp-controller="Home" asp-action="Category" asp-route-slug="@category.Slug">
+                            Tất cả @category.Name
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+
+                    @foreach (var sub in category.SubCategories.Where(c => c.IsActive))
+                    {
+                        <li>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Category" asp-route-slug="@sub.Slug">
+                                @sub.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link fw-bold" asp-controller="Home" asp-action="Category" asp-route-slug="@category.Slug">
+                    @category.Name
+                </a>
+            </li>
+        }
+    }
+</ul>
+
+<style>
+    .animate-fade {
+        animation-duration: 0.3s;
+        animation-name: fadeIn;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+    }
+
+   
+</style>

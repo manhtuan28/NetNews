@@ -1,0 +1,127 @@
+﻿@model IEnumerable<NetNews.Models.Post>
+
+@{
+    ViewData["Title"] = ViewBag.CategoryName;
+}
+
+<nav aria-label="breadcrumb" class="mb-4 bg-light p-3 rounded">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewBag.CategoryName</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+            <h2 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-0">
+                @ViewBag.CategoryName
+            </h2>
+            <span class="text-muted small">@Model.Count() bài viết</span>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="card mb-4 border-0 shadow-sm hover-shadow transition-card">
+                    <div class="row g-0">
+                        <div class="col-md-4 overflow-hidden rounded-start">
+                            <a href="/Post/Details/@item.Slug">
+                                <img src="@(string.IsNullOrEmpty(item.Thumbnail) ? "https://placehold.co/300x200" : item.Thumbnail)"
+                                     class="img-fluid h-100 w-100 object-fit-cover zoom-effect"
+                                     alt="@item.Title"
+                                     style="min-height: 200px;">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body d-flex flex-column h-100">
+                                <h4 class="card-title fw-bold mb-2">
+                                    <a href="/Post/Details/@item.Slug" class="text-dark text-decoration-none hover-primary">
+                                        @item.Title
+                                    </a>
+                                </h4>
+                                <p class="card-text text-muted mb-3 text-truncate-3">
+                                    @item.Description
+                                </p>
+                                <div class="mt-auto d-flex justify-content-between align-items-center small text-secondary">
+                                    <div>
+                                        <i class="far fa-user me-1"></i> @item.Author?.UserName
+                                        <span class="mx-2">&bull;</span>
+                                        <i class="far fa-clock me-1"></i> @item.CreatedAt.ToString("dd/MM/yyyy")
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-eye me-1"></i> @item.ViewCount
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-folder-open fa-4x text-muted mb-3 opacity-50"></i>
+                <h4 class="text-muted">Chưa có bài viết nào trong mục này.</h4>
+                <a href="/" class="btn btn-outline-primary mt-3">Quay về trang chủ</a>
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title fw-bold mb-3">Tìm kiếm</h5>
+                <form action="/Home/Search" method="get">
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Từ khóa...">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-0 shadow-sm text-white bg-dark text-center py-5">
+            <div class="card-body">
+                <h5 class="fw-bold">QUẢNG CÁO</h5>
+                <p class="small">Đặt banner tại đây</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .object-fit-cover {
+        object-fit: cover;
+    }
+
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    }
+
+    .transition-card {
+        transition: all 0.3s ease;
+    }
+
+    .zoom-effect {
+        transition: transform 0.5s ease;
+    }
+
+    .card:hover .zoom-effect {
+        transform: scale(1.05);
+    }
+
+    .hover-primary:hover {
+        color: #0d6efd !important;
+    }
+
+    .text-truncate-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
