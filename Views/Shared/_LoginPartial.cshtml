@@ -5,22 +5,33 @@
 <ul class="navbar-nav d-flex flex-row align-items-center gap-3">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="btn btn-danger btn-sm fw-bold rounded-pill px-3" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fas fa-cogs me-1"></i> Quản trị
+                </a>
+            </li>
+        }
+        else if (User.IsInRole("Editor"))
+        {
+            <li class="nav-item">
+                <a class="btn btn-warning btn-sm fw-bold rounded-pill px-3 text-dark" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fas fa-edit me-1"></i> Quản lý
+                </a>
+            </li>
+        }
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark fw-bold" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user-circle text-primary"></i> @User.Identity?.Name
             </a>
-            <ul class="dropdown-menu dropdown-menu-end position-absolute" aria-labelledby="userDropdown" style="z-index: 1050;">
-                <li>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                        <i class="fas fa-tachometer-alt me-2 text-danger"></i> Trang quản trị
-                    </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
+            <ul class="dropdown-menu dropdown-menu-end position-absolute" style="z-index: 1050;">
                 <li>
                     <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
                         <i class="fas fa-cog me-2 text-secondary"></i> Cài đặt tài khoản
                     </a>
                 </li>
+                <li><hr class="dropdown-divider"></li>
                 <li>
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                         <button type="submit" class="dropdown-item text-danger">
