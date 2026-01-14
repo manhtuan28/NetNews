@@ -1,8 +1,157 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mb-4">
+    <div class="col-lg-8 mb-3">
+        <div class="card text-white border-0 shadow-sm h-100 overflow-hidden">
+            <img src="https://placehold.co/800x450/222/fff?text=NETNEWS+HOT+NEWS" class="card-img h-100" style="object-fit: cover; filter: brightness(0.7);" alt="Tin nổi bật">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+                <span class="badge bg-danger mb-2 w-auto align-self-start">Nóng hổi</span>
+                <h2 class="card-title fw-bold"><a href="#" class="text-white text-decoration-none">AI chính thức thay đổi ngành lập trình thế giới năm 2026 như thế nào?</a></h2>
+                <p class="card-text d-none d-md-block">Trí tuệ nhân tạo (AI) đang định hình lại cách chúng ta viết mã, tối ưu hóa thuật toán và xây dựng hệ thống...</p>
+                <small class="text-light"><i class="far fa-clock"></i> 2 giờ trước &bull; Bởi <strong>Admin</strong></small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="row h-100">
+            <div class="col-12 mb-3 h-50">
+                <div class="card border-0 shadow-sm h-100 text-white overflow-hidden">
+                    <img src="https://placehold.co/400x250/111/fff?text=Technology" class="card-img h-100" style="object-fit: cover; filter: brightness(0.6);">
+                    <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+                        <span class="badge bg-primary mb-1 align-self-start">Công nghệ</span>
+                        <h5 class="card-title"><a href="#" class="text-white text-decoration-none">Ra mắt .NET 10 Preview</a></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 h-50">
+                <div class="card border-0 shadow-sm h-100 text-white overflow-hidden">
+                    <img src="https://placehold.co/400x250/333/fff?text=Economy" class="card-img h-100" style="object-fit: cover; filter: brightness(0.6);">
+                    <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+                        <span class="badge bg-success mb-1 align-self-start">Kinh tế</span>
+                        <h5 class="card-title"><a href="#" class="text-white text-decoration-none">Thị trường chứng khoán hôm nay</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+            <h3 class="fw-bold text-dark border-start border-4 border-primary ps-3">Tin mới nhất</h3>
+            <a href="#" class="btn btn-outline-secondary btn-sm rounded-pill">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="card mb-3 border-0 shadow-sm hover-shadow">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://placehold.co/300x200/eee/333?text=Thumbnail+1" class="img-fluid rounded-start h-100 object-fit-cover" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><a href="#" class="text-dark text-decoration-none">Hướng dẫn học ASP.NET Core MVC cho người mới bắt đầu</a></h5>
+                        <p class="card-text text-muted small">Khóa học toàn diện từ A-Z giúp bạn xây dựng website tin tức chuyên nghiệp...</p>
+                        <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt"></i> 14/01/2026 &bull; <i class="fas fa-eye"></i> 1,234 views</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 border-0 shadow-sm hover-shadow">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://placehold.co/300x200/eee/333?text=Thumbnail+2" class="img-fluid rounded-start h-100 object-fit-cover" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><a href="#" class="text-dark text-decoration-none">Top 5 xu hướng thiết kế Web năm 2026</a></h5>
+                        <p class="card-text text-muted small">Giao diện tối (Dark mode), hiệu ứng 3D và AI-generated content đang thống trị...</p>
+                        <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt"></i> 14/01/2026 &bull; <i class="fas fa-eye"></i> 890 views</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 border-0 shadow-sm hover-shadow">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://placehold.co/300x200/eee/333?text=Thumbnail+3" class="img-fluid rounded-start h-100 object-fit-cover" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><a href="#" class="text-dark text-decoration-none">Microsoft cập nhật SQL Server 2025: Nhanh hơn, bảo mật hơn</a></h5>
+                        <p class="card-text text-muted small">Những tính năng mới trong bản cập nhật lần này tập trung vào hiệu suất xử lý dữ liệu lớn...</p>
+                        <p class="card-text"><small class="text-muted"><i class="far fa-calendar-alt"></i> 13/01/2026 &bull; <i class="fas fa-eye"></i> 560 views</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title fw-bold mb-3">Tìm kiếm</h5>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Từ khóa...">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-white fw-bold text-uppercase border-bottom-0">
+                <i class="fas fa-fire text-danger"></i> Đọc nhiều nhất
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none text-dark small">Giá vàng hôm nay tăng kỷ lục</a>
+                    <span class="badge bg-secondary rounded-pill">1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none text-dark small">Tuyển dụng lập trình viên .NET lương cao</a>
+                    <span class="badge bg-secondary rounded-pill">2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none text-dark small">Review iPhone 18 Pro Max</a>
+                    <span class="badge bg-secondary rounded-pill">3</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#" class="text-decoration-none text-dark small">Cách làm gà rán KFC tại nhà</a>
+                    <span class="badge bg-secondary rounded-pill">4</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title fw-bold mb-3">Từ khóa hot</h5>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Tin tức</a>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Bóng đá</a>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Showbiz</a>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Công nghệ</a>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Startup</a>
+                <a href="#" class="badge bg-light text-dark text-decoration-none border p-2 mb-1">Bitcoin</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        transition: all 0.3s ease;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>

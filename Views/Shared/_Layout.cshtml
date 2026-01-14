@@ -1,48 +1,149 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NetNews</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - NetNews | Trang tin tức tổng hợp</title>
+    <meta name="description" content="NetNews - Cập nhật tin tức mới nhất, nóng nhất về thời sự, thế giới, công nghệ, giải trí 24h qua." />
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/NetNews.styles.css" asp-append-version="true" />
+
+    <style>
+        .top-bar { background-color: #f8f9fa; font-size: 0.9rem; }
+        .main-navbar { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-link { font-weight: 500; color: #333 !important; }
+        .nav-link:hover { color: #0d6efd !important; }
+        .footer-dark { background-color: #1a1e21; color: #aaa; }
+        .footer-dark h5 { color: #fff; margin-bottom: 20px; font-weight: bold; }
+        .footer-dark a { color: #aaa; text-decoration: none; }
+        .footer-dark a:hover { color: #fff; }
+        .news-ticker { background: #0d6efd; color: white; padding: 5px 15px; font-weight: bold; font-size: 0.85rem; }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NetNews</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <div class="top-bar py-2 border-bottom d-none d-lg-block">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <span class="me-3"><i class="far fa-clock text-primary"></i> @DateTime.Now.ToString("dd/MM/yyyy")</span>
+                    <a href="#" class="text-secondary me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-secondary me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-secondary me-2"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white main-navbar sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold fs-3 text-primary" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-newspaper"></i> NET<span class="text-dark">NEWS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Xã hội</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Thế giới</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Kinh doanh</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Công nghệ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Thể thao</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                Khác
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Giải trí</a></li>
+                                <li><a class="dropdown-item" href="#">Sức khỏe</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Liên hệ tòa soạn</a></li>
+                            </ul>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <form class="d-flex">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Tìm kiếm tin tức..." aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container my-4" style="min-height: 600px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer-dark pt-5 pb-3">
         <div class="container">
-            &copy; 2026 - NetNews - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase">Về NetNews</h5>
+                    <p class="small">NetNews là trang tin tức tổng hợp hàng đầu, cung cấp thông tin nhanh chóng, chính xác và đa chiều về mọi mặt đời sống xã hội.</p>
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle me-1"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle me-1"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle me-1"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5 class="text-uppercase">Tin tức</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#">Thời sự trong nước</a></li>
+                        <li class="mb-2"><a href="#">Tin thế giới</a></li>
+                        <li class="mb-2"><a href="#">Tài chính - Kinh doanh</a></li>
+                        <li class="mb-2"><a href="#">Bất động sản</a></li>
+                        <li class="mb-2"><a href="#">Giáo dục</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5 class="text-uppercase">Hỗ trợ</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a asp-controller="Home" asp-action="Privacy">Chính sách bảo mật</a></li>
+                        <li class="mb-2"><a href="#">Điều khoản sử dụng</a></li>
+                        <li class="mb-2"><a href="#">Quảng cáo</a></li>
+                        <li class="mb-2"><a href="#">Tuyển dụng</a></li>
+                        <li class="mb-2"><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase">Đăng ký nhận tin</h5>
+                    <p class="small">Nhận những tin tức nóng hổi nhất gửi thẳng vào hộp thư của bạn mỗi sáng.</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email của bạn" aria-label="Email">
+                            <button class="btn btn-primary" type="button">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="bg-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 small">
+                    &copy; 2026 <strong>NetNews Corp</strong>. All Rights Reserved.
+                </div>
+                <div class="col-md-6 text-md-end small">
+                    <span class="me-3"><i class="fas fa-map-marker-alt"></i> Hà Nội, Việt Nam</span>
+                    <span><i class="fas fa-envelope"></i> contact@netnews.vn</span>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
