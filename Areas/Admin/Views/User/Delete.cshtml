@@ -5,38 +5,48 @@
 }
 
 <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="card shadow-lg border-0 border-top border-5 border-danger">
-            <div class="card-body p-5 text-center">
-                <div class="mb-4">
-                    <i class="fas fa-user-times fa-4x text-danger opacity-75"></i>
-                </div>
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 border-top border-5 border-danger position-relative">
+            <div class="position-absolute start-50 translate-middle-x bg-danger text-white rounded-circle d-flex align-items-center justify-content-center shadow"
+                 style="width: 80px; height: 80px; top: -40px;">
+                <i class="fas fa-user-times fa-2x"></i>
+            </div>
 
-                <h3 class="fw-bold mb-3">Xóa tài khoản vĩnh viễn?</h3>
+            <div class="card-body p-4 pt-5 text-center mt-3">
+                <h4 class="fw-bold text-dark mt-3">Xóa tài khoản này?</h4>
+                <p class="text-muted mb-4">Bạn đang thực hiện xóa thành viên <strong>"@Model.UserName"</strong></p>
 
-                <div class="alert alert-warning text-start border-0 bg-warning bg-opacity-10">
-                    <p class="mb-1"><strong>Tài khoản:</strong> @Model.UserName (@Model.Email)</p>
-                    <hr class="my-2">
-                    <p class="mb-0 text-danger fw-bold">
-                        <i class="fas fa-exclamation-triangle me-2"></i>Cảnh báo:
-                    </p>
-                    <ul class="mb-0 small text-danger">
-                        <li>Hành động này <strong>không thể hoàn tác</strong>.</li>
-                        <li>User sẽ bị xóa khỏi hệ thống.</li>
-                        @if (ViewBag.PostCount > 0)
-                        {
-                            <li><strong>@ViewBag.PostCount bài viết</strong> của user này cũng sẽ bị xóa sạch!</li>
-                        }
-                    </ul>
+                <div class="alert alert-danger bg-danger bg-opacity-10 border-danger border-opacity-25 text-start rounded-3 mb-4">
+                    <div class="d-flex">
+                        <i class="fas fa-exclamation-triangle text-danger mt-1 me-3 fa-lg"></i>
+                        <div>
+                            <strong class="text-danger text-uppercase">Cảnh báo:</strong><br />
+                            <ul class="mb-0 ps-3 small text-danger">
+                                <li>Hành động này <strong>không thể hoàn tác</strong>.</li>
+                                @if (ViewBag.PostCount > 0)
+                                {
+                                    <li><strong>@ViewBag.PostCount bài viết</strong> của thành viên này cũng sẽ bị xóa sạch khỏi hệ thống!</li>
+                                }
+                                else
+                                {
+                                    <li>Toàn bộ dữ liệu liên quan sẽ bị xóa.</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <form asp-action="Delete">
                     <input type="hidden" name="id" value="@Model.Id" />
-                    <div class="d-flex justify-content-center gap-3 mt-4">
-                        <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">Quay lại</a>
-                        <button type="submit" class="btn btn-danger px-4 fw-bold rounded-pill">
-                            <i class="fas fa-trash-alt me-2"></i> Xác nhận xóa
-                        </button>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-light w-100 fw-bold text-muted">Hủy bỏ</a>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger w-100 fw-bold shadow-sm">
+                                Xóa vĩnh viễn
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

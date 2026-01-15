@@ -5,22 +5,29 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-        <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-newspaper me-2"></i>Danh sách bài viết</h5>
-        <a asp-action="Create" class="btn btn-primary btn-sm rounded-pill"><i class="fas fa-plus me-1"></i> Viết bài mới</a>
+        <div>
+            <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-newspaper me-2"></i>@ViewData["Title"]</h5>
+            <small class="text-muted">Quản lý toàn bộ nội dung tin tức trên hệ thống</small>
+        </div>
+        <a asp-action="Create" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm">
+            <i class="fas fa-plus me-1"></i> Viết bài mới
+        </a>
     </div>
     <div class="card-body p-0">
         @if (TempData["Success"] != null)
         {
-            <div class="alert alert-success m-3">@TempData["Success"]</div>
+            <div class="alert alert-success m-3 rounded-3 border-0 shadow-sm d-flex align-items-center">
+                <i class="fas fa-check-circle me-2 fa-lg"></i>
+                <div>@TempData["Success"]</div>
+            </div>
         }
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light">
+                <thead class="bg-light text-uppercase small fw-bold text-muted">
                     <tr>
-                        <th class="ps-4" style="width: 100px;">Ảnh</th>
-                        <th>Tiêu đề / Danh mục</th>
+                        <th class="ps-4" style="width: 120px;">Hình ảnh</th>
+                        <th>Thông tin bài viết</th>
                         <th>Tác giả</th>
-                        <th>Ngày tạo</th>
                         <th>Trạng thái</th>
                         <th class="text-end pe-4">Hành động</th>
                     </tr>
@@ -30,41 +37,62 @@
                     {
                         <tr>
                             <td class="ps-4">
-                                @if (!string.IsNullOrEmpty(item.Thumbnail))
-                                {
-                                    <img src="@item.Thumbnail" class="rounded" style="width: 80px; height: 50px; object-fit: cover;" />
-                                }
-                                else
-                                {
-                                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center text-white small" style="width: 80px; height: 50px;">No Image</div>
-                                }
+                                <div class="position-relative">
+                                    @if (!string.IsNullOrEmpty(item.Thumbnail))
+                                    {
+                                        <img src="@item.Thumbnail" class="rounded shadow-sm object-fit-cover" style="width: 100px; height: 65px;" alt="Thumb" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center text-muted border" style="width: 100px; height: 65px;">
+                                            <i class="fas fa-image fa-lg"></i>
+                                        </div>
+                                    }
+                                </div>
                             </td>
                             <td>
-                                <div class="fw-bold text-dark text-truncate" style="max-width: 300px;">
+                                <div class="fw-bold text-dark mb-1 text-truncate" style="max-width: 350px;">
                                     @if (item.IsFeatured)
                                     {
-                                        <span class="badge bg-danger me-1">HOT</span>
+                                        <i class="fas fa-star text-warning me-1" title="Tin nổi bật"></i>
                                     }
-                                    @item.Title
+                                    <a href="/Post/Details/@item.Slug" target="_blank" class="text-dark text-decoration-none hover-primary">@item.Title</a>
                                 </div>
-                                <span class="badge bg-light text-secondary border">@item.Category?.Name</span>
+                                <div class="small">
+                                    <span class="badge bg-light text-secondary border me-2"><i class="fas fa-folder me-1"></i>@item.Category?.Name</span>
+                                    <span class="text-muted"><i class="far fa-clock me-1"></i>@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    <span class="text-muted ms-2"><i class="fas fa-eye me-1"></i>@item.ViewCount view</span>
+                                </div>
                             </td>
-                            <td><small>@item.Author?.UserName</small></td>
-                            <td><small class="text-muted">@item.CreatedAt.ToString("dd/MM/yyyy")</small></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2 small shadow-sm" style="width: 30px; height: 30px;">
+                                        @(item.Author?.UserName?.Substring(0, 1).ToUpper() ?? "U")
+                                    </div>
+                                    <span class="small fw-bold text-secondary">@item.Author?.UserName</span>
+                                </div>
+                            </td>
                             <td>
                                 @if (item.IsPublished)
                                 {
-                                    <span class="badge bg-success">Public</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded-pill border border-success border-opacity-25">
+                                        <i class="fas fa-check-circle me-1"></i>Public
+                                    </span>
                                 }
                                 else
                                 {
-
-                                    <span class="badge bg-warning text-dark">Draft</span>
+                                    <span class="badge bg-secondary bg-opacity-10 text-secondary px-2 py-1 rounded-pill border border-secondary border-opacity-25">
+                                        <i class="fas fa-file-alt me-1"></i>Draft
+                                    </span>
                                 }
                             </td>
                             <td class="text-end pe-4">
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm text-primary"><i class="fas fa-edit"></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-light btn-sm text-danger"><i class="fas fa-trash-alt"></i></a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm text-primary rounded-circle shadow-sm me-1" title="Sửa bài">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-light btn-sm text-danger rounded-circle shadow-sm" title="Xóa bài">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             </td>
                         </tr>
                     }
@@ -73,3 +101,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    .hover-primary:hover {
+        color: var(--primary-color) !important;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
