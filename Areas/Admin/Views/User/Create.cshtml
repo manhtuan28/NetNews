@@ -6,48 +6,47 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow border-0">
             <div class="card-header bg-white py-3">
                 <h5 class="mb-0 fw-bold text-success"><i class="fas fa-user-plus me-2"></i>@ViewData["Title"]</h5>
             </div>
             <div class="card-body p-4">
                 <form asp-action="Create" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 mb-3 small"></div>
 
-                    <div class="form-floating mb-3">
-                        <input asp-for="Email" class="form-control" placeholder="name@example.com" />
-                        <label asp-for="Email">Email (Tài khoản)</label>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold">Email (Tên đăng nhập) <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-envelope text-muted"></i></span>
+                            <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
-                                <label asp-for="Password">Mật khẩu</label>
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Password" class="form-label fw-bold">Mật khẩu <span class="text-danger">*</span></label>
+                            <input asp-for="Password" class="form-control" placeholder="********" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Xác nhận" />
-                                <label asp-for="ConfirmPassword">Nhập lại mật khẩu</label>
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label fw-bold">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="********" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="Role" class="form-label fw-bold">Phân quyền</label>
+                        <label asp-for="Role" class="form-label fw-bold">Phân quyền ban đầu</label>
                         <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select">
-                            <option value="">-- Chọn quyền hạn --</option>
+                            <option value="">-- Chọn vai trò --</option>
                         </select>
-                        <span asp-validation-for="Role" class="text-danger"></span>
+                        <span asp-validation-for="Role" class="text-danger small"></span>
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg fw-bold">
-                            <i class="fas fa-save me-2"></i>Tạo tài khoản
+                        <button type="submit" class="btn btn-success fw-bold py-2 shadow-sm">
+                            <i class="fas fa-check-circle me-2"></i> Tạo tài khoản
                         </button>
                         <a asp-action="Index" class="btn btn-light border">Hủy bỏ</a>
                     </div>

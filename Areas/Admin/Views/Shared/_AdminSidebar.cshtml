@@ -1,54 +1,59 @@
-﻿<nav id="sidebar" class="bg-dark text-white">
-    <div class="p-4 border-bottom border-secondary">
+﻿<nav id="sidebar">
+    <div class="sidebar-header d-flex align-items-center justify-content-center">
         <a href="/Admin/Dashboard" class="text-white text-decoration-none">
-            <h4 class="fw-bold"><i class="fas fa-user-shield me-2"></i>Admin Panel</h4>
+            <h4 class="fw-bold m-0"><i class="fas fa-layer-group text-primary me-2"></i>NET<span class="text-primary">NEWS</span></h4>
         </a>
     </div>
 
-    <ul class="list-unstyled components mt-3">
+    <ul class="list-unstyled components">
 
         @if (User.IsInRole("Admin"))
         {
             <li>
-                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link-admin">
-                    <i class="fas fa-tachometer-alt me-2 w-25 text-center"></i> Tổng quan
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="fas fa-chart-pie"></i> Tổng quan
                 </a>
             </li>
         }
 
-        <li class="px-3 py-2 text-uppercase small text-muted fw-bold">Nội dung</li>
+        <li class="sidebar-category">Nội dung</li>
+
+        @if (User.IsInRole("Admin"))
+        {
             <li>
-                <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link-admin">
-                    <i class="fas fa-folder me-2 w-25 text-center"></i> Quản lý Danh mục
+                <a asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <i class="fas fa-folder"></i> Danh mục
                 </a>
             </li>
+        }
+
         <li>
-            <a asp-area="Admin" asp-controller="Post" asp-action="Index" class="nav-link-admin">
-                <i class="fas fa-newspaper me-2 w-25 text-center"></i> Quản lý Bài viết
+            <a asp-area="Admin" asp-controller="Post" asp-action="Index">
+                <i class="fas fa-pen-nib"></i> Bài viết
             </a>
         </li>
 
         @if (User.IsInRole("Admin"))
         {
-            <li class="px-3 py-2 text-uppercase small text-muted fw-bold">Hệ thống</li>
+            <li class="sidebar-category">Hệ thống</li>
 
             <li>
-                <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link-admin">
-                    <i class="fas fa-users me-2 w-25 text-center"></i> Tài khoản
+                <a asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fas fa-users-cog"></i> Tài khoản
                 </a>
             </li>
 
             <li>
-                <a href="#" class="nav-link-admin">
-                    <i class="fas fa-cogs me-2 w-25 text-center"></i> Cấu hình
+                <a href="#">
+                    <i class="fas fa-sliders-h"></i> Cấu hình
                 </a>
             </li>
         }
     </ul>
 
-    <div class="p-3 mt-auto">
-        <a href="/" class="btn btn-outline-light w-100 btn-sm">
-            <i class="fas fa-globe me-2"></i> Xem trang chủ
+    <div class="px-4 mt-5">
+        <a href="/" class="btn btn-primary w-100 btn-sm shadow-sm">
+            <i class="fas fa-external-link-alt me-2"></i> Xem Website
         </a>
     </div>
 </nav>

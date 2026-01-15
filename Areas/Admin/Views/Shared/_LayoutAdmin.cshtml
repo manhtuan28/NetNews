@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Admin NetNews</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -12,27 +13,28 @@
     <div class="admin-wrapper">
         <partial name="_AdminSidebar" />
 
-        <div class="admin-content d-flex flex-column">
+        <div class="admin-content">
             <partial name="_AdminHeader" />
 
-            <main class="flex-grow-1 p-4">
+            <main class="p-4">
                 @if (ViewData["Title"] != null)
                 {
-                    <nav aria-label="breadcrumb" class="mb-4">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/Admin/Dashboard">Admin</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
-                        </ol>
-                    </nav>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-bold text-dark m-0">@ViewData["Title"]</h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0 small bg-transparent">
+                                <li class="breadcrumb-item"><a href="/Admin/Dashboard" class="text-decoration-none">Admin</a></li>
+                                <li class="breadcrumb-item active text-muted" aria-current="page">@ViewData["Title"]</li>
+                            </ol>
+                        </nav>
+                    </div>
                 }
 
                 @RenderBody()
             </main>
 
-            <footer class="bg-white text-muted py-3 px-4 mt-auto border-top">
-                <div class="small">
-                    &copy; 2026 <strong>NetNews Admin System</strong>. All rights reserved.
-                </div>
+            <footer class="mt-auto py-3 text-center text-muted small border-top bg-white">
+                &copy; 2026 <strong>NetNews System</strong>. Thiết kế bởi Tuancute.
             </footer>
         </div>
     </div>
@@ -46,6 +48,29 @@
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+
+            var currentUrl = window.location.pathname.toLowerCase();
+            var bestMatch = null;
+            var maxLen = 0;
+
+            $('#sidebar ul li a').each(function () {
+                var href = $(this).attr('href');
+                if (!href || href === '#') return;
+
+                var lowerHref = href.toLowerCase();
+
+                if (currentUrl.startsWith(lowerHref)) {
+                    if (lowerHref.length > maxLen) {
+                        bestMatch = $(this);
+                        maxLen = lowerHref.length;
+                    }
+                }
+            });
+
+            if (bestMatch) {
+                $('#sidebar ul li a').removeClass('active-menu');
+                bestMatch.addClass('active-menu');
+            }
         });
     </script>
 

@@ -5,47 +5,51 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow-sm border-0">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
             <div class="card-header bg-white py-3">
                 <h5 class="mb-0 fw-bold text-warning"><i class="fas fa-edit me-2"></i>@ViewData["Title"]</h5>
             </div>
             <div class="card-body p-4">
                 <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 mb-3 small"></div>
                     <input type="hidden" asp-for="Id" />
 
                     <div class="mb-3">
-                        <label asp-for="Name" class="form-label fw-bold">Tên danh mục</label>
+                        <label asp-for="Name" class="form-label fw-bold">Tên danh mục <span class="text-danger">*</span></label>
                         <input asp-for="Name" class="form-control" />
                         <span asp-validation-for="Name" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="ParentId" class="form-label fw-bold">Danh mục cha</label>
-                        <select asp-for="ParentId" class="form-select" asp-items="ViewBag.ParentList">
-                            <option value="">-- Là danh mục gốc (Không có cha) --</option>
-                        </select>
-                        <small class="text-muted">Nếu chọn, danh mục này sẽ là con của danh mục được chọn.</small>
+                        <label asp-for="ParentId" class="form-label fw-bold">Thuộc danh mục (Cha)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-sitemap text-muted"></i></span>
+                            <select asp-for="ParentId" class="form-select" asp-items="ViewBag.ParentList">
+                                <option value="">-- Là danh mục gốc (ROOT) --</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label asp-for="Slug" class="form-label fw-bold">Slug (URL)</label>
                         <input asp-for="Slug" class="form-control" />
-                        <small class="text-muted">Nên giữ nguyên nếu không cần thiết để tránh lỗi SEO.</small>
                     </div>
 
-                    <div class="mb-4 form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive">
-                        <label class="form-check-label" asp-for="IsActive">Hiển thị danh mục này</label>
+                    <div class="mb-4 p-3 bg-light rounded border d-flex align-items-center justify-content-between">
+                        <div>
+                            <label class="form-check-label fw-bold mb-0" asp-for="IsActive">Hiển thị danh mục</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive" style="transform: scale(1.3);">
+                        </div>
                     </div>
 
-                    <div class="d-flex justify-content-end gap-2">
-                        <a asp-action="Index" class="btn btn-light border">Hủy bỏ</a>
-                        <button type="submit" class="btn btn-warning text-dark px-4 fw-bold">
-                            <i class="fas fa-save me-2"></i>Cập nhật
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning text-dark fw-bold py-2 shadow-sm">
+                            <i class="fas fa-check-circle me-2"></i> Cập nhật thay đổi
                         </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary py-2 border-0">Hủy bỏ</a>
                     </div>
                 </form>
             </div>

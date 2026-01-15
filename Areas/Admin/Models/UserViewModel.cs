@@ -41,4 +41,37 @@ namespace NetNews.Areas.Admin.Models
         [Required(ErrorMessage = "Vui lòng chọn quyền hạn")]
         public string Role { get; set; }
     }
+
+    public class EditUserViewModel
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "Tên tài khoản")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập Email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        public string Email { get; set; }
+
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
+        [Display(Name = "Số điện thoại")]
+        public string? PhoneNumber { get; set; }
+    }
+
+    public class ResetPasswordViewModel
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu mới")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Xác nhận mật khẩu")]
+        [Compare("NewPassword", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
+        public string ConfirmPassword { get; set; }
+    }
 }

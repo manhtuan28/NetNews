@@ -6,16 +6,21 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-        <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-list-alt me-2"></i>Danh sách danh mục</h5>
-        <a asp-action="Create" class="btn btn-primary btn-sm rounded-pill">
+        <div>
+            <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-layer-group me-2"></i>@ViewData["Title"]</h5>
+            <small class="text-muted">Quản lý cấu trúc nội dung của website</small>
+        </div>
+        <a asp-action="Create" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold shadow-sm">
             <i class="fas fa-plus me-1"></i> Thêm mới
         </a>
     </div>
+
     <div class="card-body p-0">
         @if (TempData["Success"] != null)
         {
-            <div class="alert alert-success m-3 rounded-3 border-0 shadow-sm">
-                <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+            <div class="alert alert-success m-3 rounded-3 border-0 shadow-sm d-flex align-items-center">
+                <i class="fas fa-check-circle me-2 fa-lg"></i>
+                <div>@TempData["Success"]</div>
             </div>
         }
 
@@ -24,9 +29,8 @@
                 <thead class="bg-light text-uppercase small fw-bold text-muted">
                     <tr>
                         <th class="ps-4">Tên danh mục</th>
-                        <th>Cấp độ</th>
-                        <th>Slug</th>
-                        <th>Trạng thái</th>
+                        <th>Slug (Đường dẫn)</th>
+                        <th class="text-center">Trạng thái</th>
                         <th class="text-end pe-4">Hành động</th>
                     </tr>
                 </thead>
@@ -35,52 +39,55 @@
                     {
                         foreach (var item in Model)
                         {
-                            <tr>
+                            <tr class="@(item.ParentId == null ? "bg-light bg-opacity-25" : "")">
                                 <td class="ps-4">
                                     @if (item.ParentId == null)
                                     {
-                                        <strong class="text-primary"><i class="fas fa-folder me-2"></i>@item.Name</strong>
+                                        <div class="fw-bold text-primary text-uppercase">
+                                            <i class="fas fa-folder me-2"></i>@item.Name
+                                        </div>
                                     }
                                     else
                                     {
-                                        <div class="ms-4 text-dark">
-                                            <i class="fas fa-level-up-alt fa-rotate-90 me-2 text-secondary"></i>@item.Name
+                                        <div class="ms-4 position-relative">
+                                            <i class="fas fa-level-up-alt fa-rotate-90 me-2 text-muted opacity-50"></i>
+                                            <span class="fw-bold text-dark">@item.Name</span>
+                                            <span class="badge bg-light text-secondary border ms-2 small">Con của: @item.Parent?.Name</span>
                                         </div>
                                     }
                                 </td>
-                                <td>
-                                    @if (item.ParentId == null)
-                                    {
-                                        <span class="badge bg-primary">ROOT</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-info text-dark">
-                                            Con của: @item.Parent?.Name
-                                        </span>
-                                    }
+                                <td class="text-muted fst-italic small">
+                                    <i class="fas fa-link me-1 opacity-50"></i> @item.Slug
                                 </td>
-                                <td class="text-muted small">/@item.Slug</td>
-                                <td>
+                                <td class="text-center">
                                     @if (item.IsActive)
                                     {
-                                        <i class="fas fa-check-circle text-success" title="Hiển thị"></i>
+                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Hiển thị</span>
                                     }
                                     else
                                     {
-                                        <i class="fas fa-times-circle text-danger" title="Ẩn"></i>
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3">Đang ẩn</span>
                                     }
                                 </td>
                                 <td class="text-end pe-4">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm text-warning" title="Sửa">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm text-primary rounded-circle shadow-sm me-1" title="Chỉnh sửa">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-light btn-sm text-danger" title="Xóa">
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-light btn-sm text-danger rounded-circle shadow-sm" title="Xóa">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
                         }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="fas fa-folder-open fa-3x mb-3 opacity-25"></i>
+                                <p>Chưa có danh mục nào.</p>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
