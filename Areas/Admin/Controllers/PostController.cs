@@ -25,11 +25,20 @@ namespace NetNews.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var posts = await _context.Posts
+            var postsQuery = _context.Posts
                 .Include(p => p.Category)
                 .Include(p => p.Author)
-                .OrderByDescending(p => p.CreatedAt)
-                .ToListAsync();
+                .OrderByDescending(p => p.CreatedAt) 
+                .AsQueryable();
+
+            if (!User.IsInRole("Admin"))
+            {
+                var currentUserId = _userManager.GetUserId(User);
+                postsQuery = postsQuery.Where(p => p.AuthorId == currentUserId);
+            }
+
+            var posts = await postsQuery.ToListAsync();
+
             return View(posts);
         }
 
@@ -52,7 +61,7 @@ namespace NetNews.Areas.Admin.Controllers
 
                 if (string.IsNullOrEmpty(post.Slug))
                 {
-                    post.Slug = post.Title.ToLower().Replace(" ", "-");
+                    post.Slug = NetNews.Helpers.SlugHelper.GenerateSlug(post.Title);
                 }
 
                 if (post.ImageUpload != null)
@@ -115,9 +124,7 @@ namespace NetNews.Areas.Admin.Controllers
                     post.UpdatedAt = DateTime.Now;
 
                     if (string.IsNullOrEmpty(post.Slug))
-                    {
-                        post.Slug = post.Title.ToLower().Replace(" ", "-");
-                    }
+                        post.Slug = NetNews.Helpers.SlugHelper.GenerateSlug(post.Title);
 
                     if (post.ImageUpload != null)
                     {

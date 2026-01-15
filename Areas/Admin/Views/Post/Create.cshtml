@@ -70,11 +70,31 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
     <script>
         ClassicEditor
-            .create(document.querySelector('#contentEditor'))
+            .create(document.querySelector('#contentEditor'), {
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                        'outdent', 'indent', '|',
+                        'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'
+                    ]
+                },
+                image: {
+                    toolbar: [
+                        'imageStyle:inline',
+                        'imageStyle:block',
+                        'imageStyle:side',
+                        '|',
+                        'toggleImageCaption',
+                        'imageTextAlternative'
+                    ]
+                },
+                language: 'en'
+            })
             .catch(error => {
                 console.error(error);
             });

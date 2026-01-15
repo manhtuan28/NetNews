@@ -5,6 +5,75 @@
     var relatedPosts = ViewBag.RelatedPosts as List<NetNews.Models.Post>;
 }
 
+    <style>
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+            .article-content figure.image {
+                display: table;
+                margin: 1.5rem auto;
+                max-width: 100%;
+                clear: both;
+                text-align: center;
+            }
+
+                .article-content figure.image img {
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                }
+
+                .article-content figure.image figcaption {
+                    display: table-caption;
+                    caption-side: bottom;
+                    background: #f8f9fa;
+                    color: #666;
+                    font-size: 0.9rem;
+                    font-style: italic;
+                    padding: 8px 10px;
+                    text-align: center;
+                    margin-top: 5px;
+                    border-bottom: 2px solid #ddd;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+
+            .article-content .image-style-side {
+                float: right;
+                margin-left: 1.5rem;
+                max-width: 50%;
+            }
+
+            .article-content .image-style-align-left {
+                float: left;
+                margin-right: 1.5rem;
+                max-width: 50%;
+            }
+
+            .article-content h2, .article-content h3 {
+                font-weight: bold;
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+                color: #0d6efd;
+            }
+
+            .article-content blockquote {
+                border-left: 5px solid #0d6efd;
+                padding-left: 15px;
+                font-style: italic;
+                color: #555;
+                margin: 1.5rem 0;
+                background: #f1f1f1;
+                padding: 10px 15px;
+            }
+    </style>
+
 <nav aria-label="breadcrumb" class="bg-light p-3 rounded mb-4">
     <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
