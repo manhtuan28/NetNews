@@ -25,6 +25,10 @@ namespace NetNews.Areas.Admin.Models
 
     public class CreateUserViewModel
     {
+        [Required(ErrorMessage = "Vui lòng nhập Tên tài khoản")]
+        [Display(Name = "Tên tài khoản")]
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "Vui lòng nhập Email")]
         [EmailAddress]
         public string Email { get; set; }

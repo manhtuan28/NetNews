@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace NetNews.Areas.Identity.Pages.Account
 {
@@ -54,6 +55,11 @@ namespace NetNews.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required(ErrorMessage = "Vui lòng nhập họ và tên.")]
+            [Display(Name = "Họ và tên")]
+            [StringLength(100, ErrorMessage = "Tên không được quá 100 ký tự.")]
+            public string FullName { get; set; }
+
             [Required(ErrorMessage = "Vui lòng nhập Email.")]
             [EmailAddress(ErrorMessage = "Định dạng Email không hợp lệ.")]
             [Display(Name = "Email")]
@@ -82,12 +88,14 @@ namespace NetNews.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.FullName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -103,7 +111,6 @@ namespace NetNews.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
                     await _emailSender.SendEmailAsync(Input.Email, "Xác nhận đăng ký tài khoản NetNews",
                         $"Vui lòng xác nhận tài khoản của bạn bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>bấm vào đây</a>.");
 

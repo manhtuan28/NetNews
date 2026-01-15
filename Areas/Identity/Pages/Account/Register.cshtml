@@ -18,19 +18,25 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small" role="alert"></div>
 
                         <div class="form-floating mb-3">
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <input asp-for="Input.FullName" class="form-control" placeholder="Nguyễn Văn A" />
+                            <label asp-for="Input.FullName"><i class="fas fa-user me-1"></i> Họ và tên</label>
+                            <span asp-validation-for="Input.FullName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
                             <label asp-for="Input.Email"><i class="fas fa-envelope me-1"></i> Email</label>
                             <span asp-validation-for="Input.Email" class="text-danger small"></span>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="password" />
                             <label asp-for="Input.Password"><i class="fas fa-lock me-1"></i> Mật khẩu</label>
                             <span asp-validation-for="Input.Password" class="text-danger small"></span>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="password" />
                             <label asp-for="Input.ConfirmPassword"><i class="fas fa-check-circle me-1"></i> Nhập lại mật khẩu</label>
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
                         </div>
@@ -41,52 +47,12 @@
                     </form>
 
                     <hr>
-
                     <div class="text-center small">
-                        Đã có tài khoản? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="fw-bold text-decoration-none">Đăng nhập</a>
+                        Đã có tài khoản? <a asp-page="./Login" class="fw-bold text-decoration-none">Đăng nhập</a>
                     </div>
                 </div>
 
                 <div class="col-md-5 bg-light border-start p-5 d-flex flex-column justify-content-center align-items-center text-center">
-                    <h5 class="fw-bold mb-3">Hoặc đăng ký bằng</h5>
-                    <hr class="w-25 border-success mb-4">
-
-                    @{
-                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                        {
-                            <div class="alert alert-light border text-muted small">
-                                <i class="fas fa-info-circle mb-2 fs-4"></i><br />
-                                Hiện tại chưa có cổng đăng ký ngoài (Google/Facebook) nào được cấu hình.
-                            </div>
-                        }
-                        else
-                        {
-                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="w-100">
-                                <div class="d-grid gap-2">
-                                    @foreach (var provider in Model.ExternalLogins!)
-                                    {
-                                        <button type="submit" class="btn btn-outline-secondary btn-lg bg-white position-relative" name="provider" value="@provider.Name" title="Đăng ký bằng @provider.DisplayName">
-                                            @if (provider.Name == "Google")
-                                            {
-                                                <i class="fab fa-google text-danger position-absolute start-0 ms-3 top-50 translate-middle-y"></i>
-                                            }
-                                            else if (provider.Name == "Facebook")
-                                            {
-
-                                                <i class="fab fa-facebook-f text-primary position-absolute start-0 ms-3 top-50 translate-middle-y"></i>
-                                            }
-                                            else
-                                            {
-
-                                                <i class="fas fa-sign-in-alt position-absolute start-0 ms-3 top-50 translate-middle-y"></i>
-                                            }
-                                            @provider.DisplayName
-                                        </button>
-                                    }
-                                </div>
-                            </form>
-                        }
-                    }
                 </div>
             </div>
         </div>
