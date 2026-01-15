@@ -26,6 +26,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Home/PageNotFound";
+
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.Redirect(context.RedirectUri.Split('?')[0]);
+        return Task.CompletedTask;
+    };
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
