@@ -27,7 +27,7 @@ namespace NetNews.Data
             {
                 var newAdmin = new IdentityUser
                 {
-                    UserName = adminEmail,
+                    UserName = "Admin",
                     Email = adminEmail,
                     EmailConfirmed = true
                 };

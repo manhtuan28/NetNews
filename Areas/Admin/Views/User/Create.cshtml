@@ -15,7 +15,15 @@
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 mb-3 small"></div>
 
                     <div class="mb-3">
-                        <label asp-for="Email" class="form-label fw-bold">Email (Tên đăng nhập) <span class="text-danger">*</span></label>
+                        <label asp-for="UserName" class="form-label fw-bold">Tên tài khoản <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-user text-muted"></i></span>
+                            <input asp-for="UserName" class="form-control" placeholder="Ví dụ: admin, mod01, nguyenvan..." />
+                        </div>
+                        <span asp-validation-for="UserName" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="fas fa-envelope text-muted"></i></span>
                             <input asp-for="Email" class="form-control" placeholder="name@example.com" />
@@ -23,17 +31,21 @@
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="Password" class="form-label fw-bold">Mật khẩu <span class="text-danger">*</span></label>
-                            <input asp-for="Password" class="form-control" placeholder="********" />
-                            <span asp-validation-for="Password" class="text-danger small"></span>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Thiết lập mật khẩu <span class="text-danger">*</span></label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text bg-light"><i class="fas fa-key text-muted"></i></span>
+                            <input asp-for="Password" class="form-control" placeholder="Mật khẩu" id="passwordInput" />
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('passwordInput')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-primary fw-bold" type="button" onclick="generateRandomPassword()"><i class="fas fa-magic me-1"></i> Random</button>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="ConfirmPassword" class="form-label fw-bold">Xác nhận mật khẩu <span class="text-danger">*</span></label>
-                            <input asp-for="ConfirmPassword" class="form-control" placeholder="********" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+
+                        <div class="input-group mt-2">
+                            <span class="input-group-text bg-light"><i class="fas fa-check-circle text-muted"></i></span>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" id="confirmPasswordInput" />
                         </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-4">
@@ -55,7 +67,40 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    
+    <script>
+        function generateRandomPassword() {
+            const length = 12;
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@@#$%^&*";
+            let retVal = "";
+            
+            retVal += "A";
+            retVal += "a";
+            retVal += "1";
+            retVal += "@@";
+
+            for (let i = 0, n = charset.length; i < length - 4; ++i) {
+                retVal += charset.charAt(Math.floor(Math.random() * n));
+            }
+            
+            retVal = retVal.split('').sort(function(){return 0.5-Math.random()}).join('');
+
+            document.getElementById("passwordInput").value = retVal;
+            document.getElementById("confirmPasswordInput").value = retVal;
+            
+            document.getElementById("passwordInput").type = "text";
+            document.getElementById("confirmPasswordInput").type = "text";
+        }
+
+        function togglePasswordVisibility(id) {
+            var x = document.getElementById(id);
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 }
