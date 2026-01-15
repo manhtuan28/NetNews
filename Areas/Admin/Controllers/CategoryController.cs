@@ -55,7 +55,7 @@ namespace NetNews.Areas.Admin.Controllers
             {
                 if (string.IsNullOrEmpty(category.Slug))
                 {
-                    category.Slug = category.Name.ToLower().Replace(" ", "-");
+                    category.Slug = NetNews.Helpers.SlugHelper.GenerateSlug(category.Name);
                 }
 
                 _context.Add(category);
@@ -92,7 +92,7 @@ namespace NetNews.Areas.Admin.Controllers
                 {
                     if (string.IsNullOrEmpty(category.Slug))
                     {
-                        category.Slug = category.Name.ToLower().Replace(" ", "-");
+                        category.Slug = NetNews.Helpers.SlugHelper.GenerateSlug(category.Name);
                     }
 
                     _context.Update(category);

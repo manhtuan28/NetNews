@@ -9,6 +9,10 @@ namespace NetNews.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Post", new { area = "Admin" });
+            }
             return View();
         }
     }
