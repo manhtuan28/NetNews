@@ -41,6 +41,8 @@ else
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/Home/PageNotFound");
+
 app.UseHttpsRedirection();
 app.UseRouting();
 

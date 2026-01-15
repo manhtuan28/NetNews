@@ -52,6 +52,13 @@ namespace NetNews.Controllers
             return View();
         }
 
+        [Route("/Home/PageNotFound")]
+        public IActionResult PageNotFound()
+        {
+            Response.StatusCode = 404;
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
