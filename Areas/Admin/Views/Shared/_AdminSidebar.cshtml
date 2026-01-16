@@ -33,6 +33,12 @@
             </a>
         </li>
 
+        <li>
+            <a asp-area="Admin" asp-controller="Comment" asp-action="Index">
+                <i class="fas fa-comments me-2"></i> Quản lý Bình luận
+            </a>
+        </li>
+
         @if (User.IsInRole("Admin"))
         {
             <li class="sidebar-category">Hệ thống</li>
@@ -44,7 +50,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a asp-area="Admin" asp-controller="Setting" asp-action="Index">
                     <i class="fas fa-sliders-h"></i> Cấu hình
                 </a>
             </li>
