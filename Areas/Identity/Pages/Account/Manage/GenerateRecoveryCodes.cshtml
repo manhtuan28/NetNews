@@ -1,27 +1,32 @@
 ﻿@page
 @model GenerateRecoveryCodesModel
 @{
-    ViewData["Title"] = "Generate two-factor authentication (2FA) recovery codes";
+    ViewData["Title"] = "Tạo mã khôi phục xác thực hai lớp (2FA)";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-        <span class="glyphicon glyphicon-warning-sign"></span>
-        <strong>Put these codes in a safe place.</strong>
-    </p>
-    <p>
-        If you lose your device and don't have the recovery codes you will lose access to your account.
-    </p>
-    <p>
-        Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-page="./ResetAuthenticator">reset your authenticator keys.</a>
-    </p>
-</div>
-<div>
-    <form method="post">
-        <button class="btn btn-danger" type="submit">Generate Recovery Codes</button>
-    </form>
+<h3 class="fw-bold text-danger mb-3"><i class="fas fa-key me-2"></i>@ViewData["Title"]</h3>
+
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-body p-4">
+        <div class="alert alert-danger shadow-sm border-0 d-flex align-items-start" role="alert">
+            <i class="fas fa-exclamation-triangle fs-4 me-3 mt-1"></i>
+            <div>
+                <p class="mb-2"><strong>Hãy lưu trữ những mã này ở nơi an toàn.</strong></p>
+                <p class="mb-2">Nếu bạn mất thiết bị và không có mã khôi phục, bạn sẽ <strong>mất quyền truy cập</strong> vào tài khoản của mình vĩnh viễn.</p>
+                <p class="mb-0 small">
+                    Việc tạo mã khôi phục mới không làm thay đổi khóa trong ứng dụng xác thực. Nếu bạn muốn thay đổi khóa, bạn nên
+                    <a asp-page="./ResetAuthenticator" class="fw-bold text-decoration-none">thiết lập lại khóa xác thực.</a>
+                </p>
+            </div>
+        </div>
+
+        <form method="post" class="mt-4">
+            <button class="btn btn-danger btn-lg px-4 fw-bold rounded-pill shadow-sm" type="submit">
+                <i class="fas fa-sync-alt me-2"></i>Tạo mã khôi phục mới
+            </button>
+            <a asp-page="./TwoFactorAuthentication" class="btn btn-light btn-lg px-4 rounded-pill border ms-2">Hủy bỏ</a>
+        </form>
+    </div>
 </div>

@@ -1,24 +1,31 @@
 ﻿@page
 @model ResetAuthenticatorModel
 @{
-    ViewData["Title"] = "Reset authenticator key";
+    ViewData["Title"] = "Thiết lập lại khóa ứng dụng xác thực";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-        <span class="glyphicon glyphicon-warning-sign"></span>
-        <strong>If you reset your authenticator key your authenticator app will not work until you reconfigure it.</strong>
-    </p>
-    <p>
-        This process disables 2FA until you verify your authenticator app.
-        If you do not complete your authenticator app configuration you may lose access to your account.
-    </p>
-</div>
-<div>
-    <form id="reset-authenticator-form" method="post">
-        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">Reset authenticator key</button>
-    </form>
+<h3 class="fw-bold text-danger mb-3"><i class="fas fa-redo-alt me-2"></i>@ViewData["Title"]</h3>
+
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-body p-4">
+        <div class="alert alert-warning shadow-sm border-0 d-flex align-items-start" role="alert">
+            <i class="fas fa-exclamation-triangle fs-4 me-3 mt-1"></i>
+            <div>
+                <p class="mb-2"><strong>Nếu bạn thiết lập lại khóa, ứng dụng xác thực hiện tại sẽ không còn hoạt động.</strong></p>
+                <p class="mb-2">
+                    Quá trình này sẽ vô hiệu hóa 2FA cho đến khi bạn xác minh lại ứng dụng xác thực của mình.
+                    Nếu bạn không hoàn tất cấu hình ứng dụng xác thực mới, bạn có thể bị mất quyền truy cập vào tài khoản.
+                </p>
+            </div>
+        </div>
+
+        <form id="reset-authenticator-form" method="post" class="mt-4">
+            <button id="reset-authenticator-button" class="btn btn-danger btn-lg px-4 fw-bold rounded-pill shadow-sm" type="submit">
+                <i class="fas fa-trash-alt me-2"></i>Thiết lập lại khóa ngay bây giờ
+            </button>
+            <a asp-page="./TwoFactorAuthentication" class="btn btn-light btn-lg px-4 rounded-pill border ms-2">Quay lại</a>
+        </form>
+    </div>
 </div>

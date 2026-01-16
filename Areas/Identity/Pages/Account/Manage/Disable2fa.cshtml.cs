@@ -36,12 +36,12 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải người dùng có ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
-                throw new InvalidOperationException($"Cannot disable 2FA for user as it's not currently enabled.");
+                throw new InvalidOperationException($"Không thể tắt 2FA vì tính năng này hiện chưa được bật.");
             }
 
             return Page();
@@ -52,17 +52,18 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải người dùng có ID '{_userManager.GetUserId(User)}'.");
             }
 
             var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, false);
             if (!disable2faResult.Succeeded)
             {
-                throw new InvalidOperationException($"Unexpected error occurred disabling 2FA.");
+                throw new InvalidOperationException($"Đã xảy ra lỗi ngoài ý muốn khi tắt xác thực 2FA.");
             }
 
-            _logger.LogInformation("User with ID '{UserId}' has disabled 2fa.", _userManager.GetUserId(User));
-            StatusMessage = "2fa has been disabled. You can reenable 2fa when you setup an authenticator app";
+            _logger.LogInformation("Người dùng có ID '{UserId}' đã tắt xác thực 2FA thành công.", _userManager.GetUserId(User));
+            StatusMessage = "Xác thực hai lớp (2FA) đã bị tắt. Bạn có thể bật lại khi thiết lập ứng dụng xác thực mới.";
+
             return RedirectToPage("./TwoFactorAuthentication");
         }
     }

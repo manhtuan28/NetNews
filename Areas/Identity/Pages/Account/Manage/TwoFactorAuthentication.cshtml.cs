@@ -62,7 +62,7 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải thông tin người dùng.");
             }
 
             HasAuthenticator = await _userManager.GetAuthenticatorKeyAsync(user) != null;
@@ -78,11 +78,11 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải thông tin người dùng.");
             }
 
             await _signInManager.ForgetTwoFactorClientAsync();
-            StatusMessage = "The current browser has been forgotten. When you login again from this browser you will be prompted for your 2fa code.";
+            StatusMessage = "Trình duyệt hiện tại đã được xóa khỏi danh sách tin cậy. Bạn sẽ cần nhập mã 2FA khi đăng nhập lại từ trình duyệt này.";
             return RedirectToPage();
         }
     }

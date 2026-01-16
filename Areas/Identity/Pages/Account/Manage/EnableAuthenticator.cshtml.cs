@@ -73,14 +73,10 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Vui lòng nhập mã xác nhận.")]
+            [StringLength(7, ErrorMessage = "{0} phải dài từ {2} đến {1} ký tự.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Verification Code")]
+            [Display(Name = "Mã xác nhận")]
             public string Code { get; set; }
         }
 
@@ -89,11 +85,10 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải người dùng có ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadSharedKeyAndQrCodeUriAsync(user);
-
             return Page();
         }
 
@@ -102,7 +97,7 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Không thể tải người dùng.");
             }
 
             if (!ModelState.IsValid)
@@ -111,24 +106,19 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            // Strip spaces and hyphens
             var verificationCode = Input.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
-
             var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(
                 user, _userManager.Options.Tokens.AuthenticatorTokenProvider, verificationCode);
 
             if (!is2faTokenValid)
             {
-                ModelState.AddModelError("Input.Code", "Verification code is invalid.");
+                ModelState.AddModelError("Input.Code", "Mã xác nhận không hợp lệ hoặc đã hết hạn.");
                 await LoadSharedKeyAndQrCodeUriAsync(user);
                 return Page();
             }
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
-            var userId = await _userManager.GetUserIdAsync(user);
-            _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
-
-            StatusMessage = "Your authenticator app has been verified.";
+            StatusMessage = "Ứng dụng xác thực của bạn đã được xác minh và kích hoạt thành công.";
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {
@@ -136,12 +126,9 @@ namespace NetNews.Areas.Identity.Pages.Account.Manage
                 RecoveryCodes = recoveryCodes.ToArray();
                 return RedirectToPage("./ShowRecoveryCodes");
             }
-            else
-            {
-                return RedirectToPage("./TwoFactorAuthentication");
-            }
-        }
 
+            return RedirectToPage("./TwoFactorAuthentication");
+        }
         private async Task LoadSharedKeyAndQrCodeUriAsync(IdentityUser user)
         {
             // Load the authenticator key & QR code URI to display on the form
