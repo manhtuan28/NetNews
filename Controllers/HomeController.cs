@@ -19,6 +19,33 @@ namespace NetNews.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // Lấy danh sách các danh mục chính có chứa bài viết
+            var categories = await _context.Categories
+                .Where(c => c.IsActive && c.ParentId == null)
+                .ToListAsync();
+
+            var categoryBoxes = new List<CategoryBoxViewModel>();
+
+            foreach (var cat in categories)
+            {
+                var posts = await _context.Posts
+                    .Include(p => p.Author)
+                    .Where(p => p.IsPublished && (p.CategoryId == cat.Id || p.Category.ParentId == cat.Id))
+                    .OrderByDescending(p => p.CreatedAt)
+                    .Take(4) // Mỗi danh mục lấy 4 bài
+                    .ToListAsync();
+
+                if (posts.Any())
+                {
+                    categoryBoxes.Add(new CategoryBoxViewModel
+                    {
+                        CategoryName = cat.Name,
+                        CategorySlug = cat.Slug,
+                        Posts = posts
+                    });
+                }
+            }
+
             var viewModel = new HomeViewModel
             {
                 FeaturedPosts = await _context.Posts
@@ -32,16 +59,18 @@ namespace NetNews.Controllers
                 RecentPosts = await _context.Posts
                     .Include(p => p.Category)
                     .Include(p => p.Author)
-                    .Where(p => p.IsPublished && !p.IsFeatured)
+                    .Where(p => p.IsPublished)
                     .OrderByDescending(p => p.CreatedAt)
-                    .Take(10)
+                    .Take(6)
                     .ToListAsync(),
 
                 MostViewedPosts = await _context.Posts
                     .Where(p => p.IsPublished)
                     .OrderByDescending(p => p.ViewCount)
                     .Take(5)
-                    .ToListAsync()
+                    .ToListAsync(),
+
+                CategoryBoxes = categoryBoxes
             };
 
             return View(viewModel);
