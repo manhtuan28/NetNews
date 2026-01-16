@@ -41,5 +41,6 @@ namespace NetNews.Models
         public string? AuthorId { get; set; }
         [ForeignKey("AuthorId")]
         public IdentityUser? Author { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

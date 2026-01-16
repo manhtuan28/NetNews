@@ -1,0 +1,98 @@
+﻿@model NetNews.Models.SystemSetting
+
+@{
+    ViewData["Title"] = "Cấu hình hệ thống";
+}
+
+<div class="card shadow border-0">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-sliders-h me-2"></i>@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body p-4">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success border-0 shadow-sm mb-4">
+                <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+            </div>
+        }
+
+        <form asp-action="Update" method="post">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <h6 class="text-uppercase fw-bold text-muted small"><i class="fas fa-globe me-1"></i> Thông tin chung</h6>
+                    <hr />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="WebsiteName" class="form-label fw-bold">Tên Website</label>
+                    <input asp-for="WebsiteName" class="form-control" placeholder="Ví dụ: NetNews" />
+                    <span asp-validation-for="WebsiteName" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Slogan" class="form-label fw-bold">Slogan (Khẩu hiệu)</label>
+                    <input asp-for="Slogan" class="form-control" placeholder="Ví dụ: Tin tức nóng hổi 24h" />
+                </div>
+
+                <div class="col-12 mt-3 mb-2">
+                    <h6 class="text-uppercase fw-bold text-muted small"><i class="fas fa-address-book me-1"></i> Liên hệ</h6>
+                    <hr />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ContactEmail" class="form-label fw-bold">Email liên hệ</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input asp-for="ContactEmail" class="form-control" placeholder="contact@domain.com" />
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PhoneNumber" class="form-label fw-bold">Số điện thoại</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="0123.456.789" />
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label asp-for="Address" class="form-label fw-bold">Địa chỉ tòa soạn</label>
+                    <input asp-for="Address" class="form-control" />
+                </div>
+
+                <div class="col-12 mt-3 mb-2">
+                    <h6 class="text-uppercase fw-bold text-muted small"><i class="fas fa-share-alt me-1"></i> Mạng xã hội</h6>
+                    <hr />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FacebookUrl" class="form-label fw-bold">Link Fanpage Facebook</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-primary text-white"><i class="fab fa-facebook-f"></i></span>
+                        <input asp-for="FacebookUrl" class="form-control" placeholder="https://facebook.com/..." />
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="YoutubeUrl" class="form-label fw-bold">Link kênh Youtube</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-danger text-white"><i class="fab fa-youtube"></i></span>
+                        <input asp-for="YoutubeUrl" class="form-control" placeholder="https://youtube.com/..." />
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3 mb-2">
+                    <h6 class="text-uppercase fw-bold text-muted small"><i class="fas fa-shoe-prints me-1"></i> Chân trang</h6>
+                    <hr />
+                </div>
+                <div class="col-md-12 mb-4">
+                    <label asp-for="FooterText" class="form-label fw-bold">Mô tả ngắn ở chân trang (Footer Text)</label>
+                    <textarea asp-for="FooterText" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="border-top pt-4">
+                <button type="submit" class="btn btn-primary px-5 fw-bold rounded-pill shadow-sm">
+                    <i class="fas fa-save me-2"></i> Lưu cấu hình hệ thống
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

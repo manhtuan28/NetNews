@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetNews.Data;
 using NetNews.Models;
@@ -10,11 +12,13 @@ namespace NetNews.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -117,6 +121,29 @@ namespace NetNews.Controllers
             return View(posts);
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> PostComment(int postId, string content, int rating, int? parentId)
+        {
+            if (string.IsNullOrWhiteSpace(content)) return BadRequest();
+
+            var comment = new Comment
+            {
+                PostId = postId,
+                Content = content,
+                Rating = rating,
+                ParentId = parentId,
+                UserId = _userManager.GetUserId(User),
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+
+            var post = await _context.Posts.FindAsync(postId);
+            return RedirectToAction("Details", new { slug = post.Slug });
+        }
+
         [Route("Post/Details/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
@@ -125,6 +152,8 @@ namespace NetNews.Controllers
             var post = await _context.Posts
                         .Include(p => p.Author)
                         .Include(p => p.Category)
+                        .Include(p => p.Comments).ThenInclude(c => c.User)
+                        .Include(p => p.Comments).ThenInclude(c => c.Replies).ThenInclude(r => r.User)
                         .FirstOrDefaultAsync(p => p.Slug == slug && p.IsPublished);
 
             if (post == null) return NotFound();
