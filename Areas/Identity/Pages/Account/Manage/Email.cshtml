@@ -1,41 +1,53 @@
 ﻿@page
 @model EmailModel
 @{
-    ViewData["Title"] = "Manage Email";
+    ViewData["Title"] = "Quản lý Email";
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h3 class="fw-bold text-primary mb-3"><i class="fas fa-envelope-open-text me-2"></i>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
+
 <div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            @if (Model.IsEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm bg-light">
+            <div class="card-body p-4">
+                <form id="email-form" method="post">
+                    <div asp-validation-summary="All" class="text-danger small mb-3" role="alert"></div>
+
+                    @if (Model.IsEmailConfirmed)
+                    {
+                        <div class="form-floating mb-3 input-group">
+                            <input asp-for="Email" class="form-control" placeholder="Email hiện tại" disabled />
+                            <div class="input-group-text bg-white border-start-0">
+                                <span class="text-success fw-bold" title="Đã xác thực"><i class="fas fa-check-circle"></i></span>
+                            </div>
+                            <label asp-for="Email">Email hiện tại</label>
                         </div>
-                    <label asp-for="Email" class="form-label"></label>
-                </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                </div>
-            }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                    }
+                    else
+                    {
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control" placeholder="Email hiện tại" disabled />
+                            <label asp-for="Email">Email hiện tại</label>
+                            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link btn-sm p-0 text-decoration-none mt-1">
+                                <i class="fas fa-paper-plane me-1"></i>Gửi lại email xác thực
+                            </button>
+                        </div>
+                    }
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Nhập email mới" />
+                        <label asp-for="Input.NewEmail"><i class="fas fa-at me-1"></i> Email mới</label>
+                        <span asp-validation-for="Input.NewEmail" class="text-danger small"></span>
+                    </div>
+
+                    <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary btn-lg w-100 fw-bold rounded-pill shadow-sm">
+                        <i class="fas fa-sync-alt me-2"></i>Thay đổi Email
+                    </button>
+                </form>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
-        </form>
+        </div>
     </div>
 </div>
 

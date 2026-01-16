@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,17 +9,19 @@
     }
 }
 
-<h1>Manage your account</h1>
+<h1 class="fw-bold text-primary mb-4"><i class="fas fa-user-cog me-2"></i>Quản lý tài khoản</h1>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h4 class="fw-bold mb-3">Cài đặt thông tin cá nhân</h4>
+        <hr class="mb-4" />
+        <div class="row">
+            <div class="col-md-3 border-end">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9 ps-md-4">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>
