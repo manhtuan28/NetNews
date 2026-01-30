@@ -7,7 +7,7 @@ using NetNews.Areas.Admin.Models;
 namespace NetNews.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Editor")]
+    [Authorize(Roles = "Admin")]
     public class CommentController : Controller
     {
         private readonly ApplicationDbContext _context;

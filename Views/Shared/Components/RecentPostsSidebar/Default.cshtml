@@ -1,0 +1,21 @@
+﻿@model IEnumerable<NetNews.Models.Post>
+
+<div class="list-group list-group-flush">
+    @foreach (var item in Model)
+    {
+        <a href="/Post/Details/@item.Slug" class="list-group-item list-group-item-action border-0 border-bottom p-3 recent-post-item">
+            <div class="row g-2 align-items-center">
+                <div class="col-4">
+                    <img src="@(string.IsNullOrEmpty(item.Thumbnail) ? "https://placehold.co/100x70" : item.Thumbnail)"
+                         class="img-fluid rounded object-fit-cover" style="height: 60px; width: 100%;" alt="@item.Title">
+                </div>
+                <div class="col-8">
+                    <h6 class="mb-1 fw-bold line-clamp-2 small" style="line-height: 1.4;">@item.Title</h6>
+                    <small class="text-muted" style="font-size: 0.75rem;">
+                        <i class="far fa-clock me-1"></i>@item.CreatedAt.ToString("dd/MM/yyyy")
+                    </small>
+                </div>
+            </div>
+        </a>
+    }
+</div>

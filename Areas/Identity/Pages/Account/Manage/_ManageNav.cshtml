@@ -1,40 +1,67 @@
 ﻿@inject SignInManager<IdentityUser> SignInManager
-@* [cite: 93] *@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column gap-2">
+
+<style>
+    .nav-manage .nav-link {
+        color: #4b5563;
+        padding: 0.8rem 1.2rem;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        margin-bottom: 0.25rem;
+    }
+
+        .nav-manage .nav-link:hover {
+            background-color: #e5e7eb;
+            color: #0d6efd;
+        }
+
+        .nav-manage .nav-link.active {
+            background-color: #eff6ff !important;
+            color: #0d6efd !important;
+            font-weight: 600;
+            border-color: #bfdbfe;
+        }
+
+        .nav-manage .nav-link i {
+            width: 25px;
+            font-size: 1.1rem;
+        }
+</style>
+
+<ul class="nav nav-pills flex-column nav-manage">
     <li class="nav-item">
-        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext) rounded-pill" id="profile" asp-page="./Index">
+        <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext) rounded-3" id="profile" asp-page="./Index">
             <i class="fas fa-id-card me-2"></i>Hồ sơ
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext) rounded-pill" id="email" asp-page="./Email">
+        <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext) rounded-3" id="email" asp-page="./Email">
             <i class="fas fa-envelope me-2"></i>Email
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext) rounded-pill" id="change-password" asp-page="./ChangePassword">
+        <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext) rounded-3" id="change-password" asp-page="./ChangePassword">
             <i class="fas fa-key me-2"></i>Mật khẩu
         </a>
     </li>
     @if (hasExternalLogins)
     {
         <li id="external-logins" class="nav-item">
-            <a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext) rounded-pill" asp-page="./ExternalLogins">
-                <i class="fas fa-share-alt me-2"></i>Liên kết ngoài
+            <a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext) rounded-3" asp-page="./ExternalLogins">
+                <i class="fas fa-share-nodes me-2"></i>Liên kết ngoài
             </a>
         </li>
     }
     <li class="nav-item">
-        <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) rounded-pill" id="two-factor" asp-page="./TwoFactorAuthentication">
-            <i class="fas fa-shield-alt me-2"></i>Xác thực 2 lớp
+        <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) rounded-3" id="two-factor" asp-page="./TwoFactorAuthentication">
+            <i class="fas fa-shield-halved me-2"></i>Xác thực 2 lớp
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext) rounded-pill" id="personal-data" asp-page="./PersonalData">
-            <i class="fas fa-user-shield me-2"></i>Dữ liệu cá nhân
+        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext) rounded-3" id="personal-data" asp-page="./PersonalData">
+            <i class="fas fa-user-lock me-2"></i>Dữ liệu cá nhân
         </a>
     </li>
 </ul>
