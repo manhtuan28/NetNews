@@ -33,12 +33,14 @@
             </a>
         </li>
 
-        <li>
-            <a asp-area="Admin" asp-controller="Comment" asp-action="Index">
-                <i class="fas fa-comments me-2"></i> Quản lý Bình luận
-            </a>
-        </li>
-
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a asp-area="Admin" asp-controller="Comment" asp-action="Index">
+                    <i class="fas fa-comments me-2"></i> Quản lý Bình luận
+                </a>
+            </li>
+        }
         @if (User.IsInRole("Admin"))
         {
             <li class="sidebar-category">Hệ thống</li>
